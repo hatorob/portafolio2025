@@ -1,0 +1,10 @@
+@use '../../styles/base/variables' as v;
+
+.contenido-centrado {
+    max-width: 800px;
+}
+
+.alinear-derecha {
+    display: flex;
+    justify-content: flex-end;
+}

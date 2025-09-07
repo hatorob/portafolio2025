@@ -1,0 +1,48 @@
+@use 'variables' as v;
+@use "sass:color";
+
+/* Mequia queries */
+
+@mixin telefono {
+    @media (min-width: v.$telefono) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: v.$tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: v.$desktop) {
+        @content;
+    }
+}
+
+@mixin grid($columnas, $espacio) {
+    display: grid;
+    grid-template-columns:  repeat($columnas,1fr);
+    gap: $espacio;
+}
+
+/* @mixin boton($bgColor, $textColor, $display) {
+    background-color: $bgColor;
+    color: $textColor;
+    font-weight: v.$bold;
+    text-decoration: none;
+    padding: 1rem 3rem;
+    text-align: center;
+    margin-top: calc(v.$separacion / 2);
+    display: $display;
+    border: 1px solid $textColor;
+    border-radius: 1rem;
+
+    &:hover {
+        background-color: color.scale($bgColor, $lightness: -10%);
+        cursor: pointer;
+    }
+
+    
+} */
