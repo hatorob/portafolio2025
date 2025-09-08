@@ -1,0 +1,65 @@
+@use '../../styles/base//variables' as v;
+@use '../../styles/base/mixins' as m;
+
+.container-home {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .container-me {
+        display: grid;
+        grid-template-columns: repeat(8,1fr);
+        grid-template-rows: auto;
+        gap: 2rem;
+        grid-template-areas: 
+                ". info-desc-one info-desc-one info-desc-one info-desc-one info-desc-one info-desc-one ."
+                ". . img-me img-me img-me img-me . ."
+                ". info-desc-two info-desc-two info-desc-two info-desc-two info-desc-two info-desc-two .";
+        @include m.desktop {
+            grid-template-areas: 
+                "info-desc-one info-desc-one img-me img-me img-me img-me . ."
+                ". . img-me img-me img-me img-me . ."
+                ". . img-me img-me img-me img-me info-desc-two info-desc-two";
+        }
+        .img-me {
+            max-width: 45rem;
+            width: 100%;
+            margin: 0 auto;
+            height: 100%;
+            grid-area: img-me;
+        }
+        .info-desc-one, .info-desc-two {
+            font-weight: v.$bold;
+            @include m.desktop {
+                line-height: 2.2rem;
+                letter-spacing: .2rem;
+                p {
+                    font-size: 2rem;
+                }
+            }
+        }
+        .info-desc-one {
+            grid-area: info-desc-one;
+            background: rgba($color: v.$azul, $alpha: 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px v.$azul;
+            animation: glow 5s infinite alternate ease-in-out;
+        }
+        .info-desc-two {
+            grid-area: info-desc-two;
+            background: rgba($color: v.$verde, $alpha: 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px v.$azul;
+            animation: glow 5s infinite alternate ease-in-out;
+        }
+    }
+
+    .container-experience {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 4rem;
+        justify-content: center;
+    }
+}

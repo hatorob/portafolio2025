@@ -1,0 +1,41 @@
+@use '../../../styles/base//variables' as v;
+@use '../../../styles/base/mixins' as m;
+
+
+
+.container-cardExp {
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: rgba($color: v.$azul, $alpha: .1);
+    min-width: 250px;
+    width: 100%;
+    box-shadow: 0 6px 20px v.$azul;
+    animation: glow 5s infinite alternate ease-in-out;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .header-title {
+            font-weight: v.$bold;
+        }
+        .header-date {
+            font-weight: v.$delgada;
+        }
+    }
+
+    .container-card-skills {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+.container-cardExp:nth-child(even) {
+  background-color: rgba($color: v.$verde, $alpha: .1);
+}
+
+@include m.tablet {
+    .container-cardExp:hover {
+        transform: scale(1.06);
+    }
+}

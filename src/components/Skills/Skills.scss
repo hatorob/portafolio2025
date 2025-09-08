@@ -1,0 +1,11 @@
+@use '../../styles/base//variables' as v;
+@use '../../styles/base/mixins' as m;
+
+
+.container-skills {
+    margin-top: 5.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    place-items: center;
+    gap: 3rem;
+}

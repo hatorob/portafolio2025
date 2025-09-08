@@ -8,3 +8,13 @@ Actualizaciones.
 3. Se agregará las secciones de blogs, desafios.
 4. Todo será totalmente administrable, desde la subida de imagenes, experiencias laborales, proyectos, blogs y desafios.
 5. Se agregara filtros para la secciones de proyectos, blogs y desafios.
+
+
+##Frontend
+
+###dependencies
+```
+npm i @tanstack/react-query
+npm i react-router-dom
+npm i @types/react-router-dom
+```

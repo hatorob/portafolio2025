@@ -1,5 +1,6 @@
 
-$fuente_principal: "Figtree", sans-serif;
+$fuente_header: "Poppins", sans-serif;
+$fuente_principal: "Inter", sans-serif;
 
 //! TAMAÑO MEDIA QUERIES
 $telefono: 480px;
@@ -9,10 +10,12 @@ $desktop: 1024px;
 //! COLORES
 $negro: #000000;
 $azul: #00c3ef;
+$azulOscuro: #4834d4;
 $verde: #00ffb2;
+$rojo: #e74c3c;
+$fusia: rgba(255, 0, 150, 0.7);
 $blanco: #FFFFFF;
-
-$gris: #F5F6FA;
+$gris: #ecf0f1;
 $grisOscuro: #333333;
 
 //! ESPACIADOS
