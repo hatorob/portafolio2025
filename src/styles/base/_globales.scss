@@ -25,6 +25,16 @@ html, body {
   color: v.$blanco;
 }
 
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
 .contenedor {
     margin: 0 auto;
     width: 100%;
@@ -51,6 +61,20 @@ html, body {
     .icon-skills {
         font-size: 5rem;
     }
+}
+
+.container-experience {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 4rem;
+    justify-content: center;
+}
+
+.container-projects {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 @keyframes glow {
@@ -132,4 +156,24 @@ a  { font-size: 1.7rem; } // 15px
     h6 { font-size: 1.6rem; }   // 16px
     p  { font-size: 1.6rem; }   // 16px
     a  { font-size: 3rem; }   // 16px
+}
+
+/* Botones */
+
+.btn-more {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a {
+    border: 1px solid v.$azul;
+    color: v.$azul;
+    padding: 1rem 8rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+  }
+  a:hover {
+    background-color: v.$azul;
+    color: v.$blanco;
+  }
 }

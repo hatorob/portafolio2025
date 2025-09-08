@@ -4,9 +4,9 @@ import { Footer } from "../components/Footer/Footer"
 
 export const PublicLayout = () => {
   return (
-    <div className="contenedor ">
+    <div className="contenedor layout">
       <Navbar />
-      <div>
+      <div className="main-content">
         <Outlet />
       </div>
       <Footer />

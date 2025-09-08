@@ -1,5 +1,5 @@
 import './Skills.scss';
-import { FaAngular, FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPhp, FaDatabase, FaGitAlt  } from "react-icons/fa";
+import { FaBootstrap, FaAngular, FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPhp, FaDatabase, FaGitAlt  } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 import { SiTypescript, SiMysql  } from "react-icons/si";
 import { DiMongodb } from "react-icons/di";
@@ -12,6 +12,7 @@ export type SkillKey =
   | "javascript"
   | "typescript"
   | "angular"
+  | "bootstrap"
   | "react"
   | "nodejs"
   | "php"
@@ -28,6 +29,7 @@ const technologies: Record<SkillKey, ReactNode> = {
     "typescript": <SiTypescript className='icon-skills icon-frontend' title="TYPESCRIPT"/>,
     "angular": <FaAngular className='icon-skills icon-frontend' title="ANGULAR"/>,
     "react": <FaReact className='icon-skills icon-frontend' title="REACT"/>,
+    "bootstrap": <FaBootstrap className='icon-skills icon-frontend' title="BOOTSTRAP"/>,
     "nodejs": <FaNodeJs className='icon-skills icon-backend' title="NODE.JS"/>,
     "php": <FaPhp className='icon-skills icon-backend' title="PHP"/>,
     "db": <FaDatabase className='icon-skills icon-backend' title="BASE DE DATOS" />,
