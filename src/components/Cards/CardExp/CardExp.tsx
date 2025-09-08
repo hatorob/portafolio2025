@@ -38,8 +38,6 @@ export const CardExp = ({experience}: Props) => {
                     experience.skills.map( (el, index) => ( <li key={`li_skills_${index}`}>{el}</li> ))
                 }
             </ul>
-
-
         </div>
     )
 }

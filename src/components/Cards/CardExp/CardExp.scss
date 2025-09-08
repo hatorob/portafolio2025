@@ -39,3 +39,64 @@
         transform: scale(1.06);
     }
 }
+
+
+/* SKELETON */
+
+.skeleton-box {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
+  display: inline-block;
+}
+
+/* Animación */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* tamaños específicos */
+.skeleton-title {
+  width: 150px;
+  height: 20px;
+}
+.skeleton-date {
+  width: 100px;
+  height: 18px;
+}
+.skeleton-text {
+  width: 80%;
+  height: 14px;
+  margin: 8px 0;
+}
+.skeleton-text.short {
+  width: 60%;
+}
+.skeleton-text.tiny {
+  width: 40%;
+}
+
+.skeleton-subtitle {
+  width: 120px;
+  height: 16px;
+  margin: 12px 0 6px;
+}
+
+.skeleton-list {
+  width: 70%;
+  height: 14px;
+  margin: 4px 0;
+}
+
+.skeleton-skill {
+  width: 60px;
+  height: 20px;
+  margin: 4px;
+  display: inline-block;
+}

@@ -12,7 +12,7 @@ export const Navbar = () => {
     <>
       <div className="container-navbar">
         <Link to="/">
-          <img src="/LOGO.svg" alt=""  width={70} height={70}/>
+          <img src="/LOGO.svg" alt=""  width={70} height={70} loading='lazy' />
         </Link>
         <GiHamburgerMenu className='menu' onClick={ () => setOpenMenu(!openMenu) }/>
         <div className="navbar-links-desk">

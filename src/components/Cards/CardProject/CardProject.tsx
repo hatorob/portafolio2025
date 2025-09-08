@@ -6,7 +6,7 @@ type Props = {
     index: number
 }
 
-interface Project {
+export interface Project {
     id: number;
     titule: string;
     img: string;
@@ -23,7 +23,7 @@ export const CardProject = ({project, index}: Props) => {
         <div className={`card-project ${index % 2 === 0 ? "left" : "right"}`}>
             <div className="card-project-container-img">
                 <a href={`${url}`} target="_blank">
-                    <img className="card-project-img" src={`${img}`} alt="imagen portada proyecto" />
+                    <img className="card-project-img" src={`${img}`} alt="imagen portada proyecto" loading='lazy' />
                 </a>
             </div>
             <div className="card-project-container-desc">
