@@ -75,16 +75,22 @@
 // Skeleton específico para card-project
 .card-project-skeleton {
   display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
 
-  &.left {
-    flex-direction: row;
+  @include m.desktop {
+    &.left {
+      flex-direction: row;
+    }
+  
+    &.right {
+      flex-direction: row-reverse;
+    }
   }
 
-  &.right {
-    flex-direction: row-reverse;
-  }
 
   .skeleton-img {
     width: 300px;
