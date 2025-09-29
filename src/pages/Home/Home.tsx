@@ -63,7 +63,7 @@ export const Home = () => {
       queryKey: ["experiences"],
       queryFn: async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const res = await fetch("http://localhost:3000/experiences");
+        const res = await fetch("http://localhost:3000/api/experiences");
         if (!res.ok) throw new Error("Error al cargar experiencias");
         return res.json();
       },
@@ -74,7 +74,7 @@ export const Home = () => {
       queryKey: ["projects"],
       queryFn: async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const res = await fetch("http://localhost:3000/projects");
+        const res = await fetch("http://localhost:3000/api/projects");
         if (!res.ok) throw new Error("Error al cargar experiencias");
         return res.json();
       },
@@ -85,7 +85,7 @@ export const Home = () => {
       queryKey: ["blogs"],
       queryFn: async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const res = await fetch("http://localhost:3000/blogs");
+        const res = await fetch("http://localhost:3000/api/blogs");
         if (!res.ok) throw new Error("Error al cargar blogs");
         return res.json();
       },
