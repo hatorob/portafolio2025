@@ -1,3 +1,4 @@
+import { formatDateRange } from '../../../utils/formateDateRange';
 import './CardExp.scss';
 
 type Props = {
@@ -6,7 +7,8 @@ type Props = {
 
 interface Experience {
     id: number;
-    date: string;
+    date_init: string;
+    date_end: string;
     company: string;
     desc_company: string;
     rol: string;
@@ -15,13 +17,14 @@ interface Experience {
     skills: string[];
 }
 
-export const CardExp = ({experience}: Props) => {
 
+export const CardExp = ({experience}: Props) => {
+    console.log(experience);
     return (
         <div className="container-cardExp">
             <div className="header">
                 <span className='header-title'>{experience.company}</span>
-                <span className='txt-blue header-date'>{experience.date}</span>
+                <span className='txt-blue header-date'>{formatDateRange(experience.date_init, experience.date_end)}</span>
             </div>
             <p className='txt-blue'>{experience.desc_company}</p>
             <p><span className='txt-green'>Cargo:</span> <span>{experience.rol}</span> </p>
