@@ -1,4 +1,6 @@
 
+import { jwtDecode, type JwtPayload } from 'jwt-decode';
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -20,7 +22,14 @@ export const AuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       isAuthenticated: false,
-      login: (userData) => set({ user: userData, isAuthenticated: true }),
+      login: (userData) => {
+        set({ user: userData, isAuthenticated: true });
+        const decode = jwtDecode<JwtPayload>(userData.token);
+        const expirationTime = decode.exp! * 1000 - Date.now();
+        setTimeout( () => {
+          set({ user: null, isAuthenticated: false })
+        },expirationTime)
+      },
       logout: () => set({ user: null, isAuthenticated: false }),
     }),
     {
