@@ -6,9 +6,15 @@ import { Blogs } from "../pages/Blogs/Blogs";
 import { Project } from "../pages/Projects/Project";
 import { Blog } from "../pages/Blogs/Blog";
 import { PrivateLayout } from "../layouts/PrivateLayout";
+import { Login } from "../pages/Login/Login";
+import { HomeAdmin } from "../admin/pages/HomeAdmin/HomeAdmin";
 
 
 export const router = createBrowserRouter([
+    {
+        path: "/login",
+        element: <Login />
+    },
     {
         element: <PublicLayout />,
         children: [
@@ -37,10 +43,10 @@ export const router = createBrowserRouter([
     {
         element: <PrivateLayout />,
         children: [
-            /* {
-                path: "/", 
-                element: <Home />
-            }, */
+            {
+                path: "/admin", 
+                element: <HomeAdmin />
+            },
         ]
     }
 ]);

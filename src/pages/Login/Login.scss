@@ -1,0 +1,53 @@
+@use '../../styles/base//variables' as v;
+@use '../../styles/base/mixins' as m;
+
+.login-container {
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba($color: v.$azul, $alpha: 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px v.$azul;
+    animation: glow 5s infinite alternate ease-in-out;
+}
+
+.login-container h2 {
+    color: v.$blanco;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background: #1d4ed8;
+}
+
+/* Animación */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
