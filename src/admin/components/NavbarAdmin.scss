@@ -1,0 +1,39 @@
+@use '../../styles/base//variables' as v;
+@use '../../styles/base/mixins' as m;
+
+.container-nav-admin {
+    padding: 10px;
+    background-color: v.$azul;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title-admin:hover {
+    cursor: pointer;
+}
+
+.container-admin-links {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    a {
+        font-size: 20px;
+        color: v.$blanco;
+    }
+}
+
+
+.btn-close {
+    background-color: v.$azul;
+    border: 1px solid v.$negro;
+    color: v.$negro;
+    padding: 10px 20px;
+    border-radius: 10px;
+    &:hover {
+        background-color: v.$negro;
+        color: v.$blanco;
+    }
+}

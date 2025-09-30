@@ -8,6 +8,9 @@ import { Blog } from "../pages/Blogs/Blog";
 import { PrivateLayout } from "../layouts/PrivateLayout";
 import { Login } from "../pages/Login/Login";
 import { HomeAdmin } from "../admin/pages/HomeAdmin/HomeAdmin";
+import { ExperiencesAdmin } from "../admin/pages/ExperiencesAdmin/ExperiencesAdmin";
+import { ProjectAdmin } from "../admin/pages/ProjectsAdmin/ProjectAdmin";
+import { BlogsAdmin } from "../admin/pages/BlogsAdmin/BlogsAdmin";
 
 
 export const router = createBrowserRouter([
@@ -46,6 +49,18 @@ export const router = createBrowserRouter([
             {
                 path: "/admin", 
                 element: <HomeAdmin />
+            },
+            {
+                path:"/admin/experiencia",
+                element: <ExperiencesAdmin />
+            },
+            {
+                path:"/admin/proyectos",
+                element: <ProjectAdmin />
+            },
+            {
+                path:"/admin/blogs",
+                element: <BlogsAdmin />
             },
         ]
     }
