@@ -1,17 +1,28 @@
-import { AuthStore } from "../../store/AuthStore";
+import { useAuthSession } from "../../hooks/auth/useAuthSession";
 import "./NavbarAdmin.scss";
 import { Link, useNavigate } from 'react-router-dom';
+import { signOut } from "aws-amplify/auth";
 
 export const NavbarAdmin = () => {
 
-    const { user, logout } = AuthStore();
     const navigate = useNavigate();
+
+    const { user } = useAuthSession();
+
+    const handleLogout = async () => {
+        try {
+        await signOut();
+        navigate("/login");
+        } catch (error) {
+        console.error("Logout error:", error);
+        }
+    };
 
     return ( user &&
         <div className="container-nav-admin">
             <div className="container-header-admin">
                 <h3 className="title-admin" onClick={() => navigate("/admin")}>Admin Portafolio</h3>
-                <p>User: {user.user}</p>
+                <p>User: {user.signInDetails.loginId}</p>
                 <hr />
                 <div className="container-admin-links">
                     <Link to={"/admin/experiencia"}>Experiencias</Link>
@@ -21,7 +32,7 @@ export const NavbarAdmin = () => {
             </div>
             <button 
                 className="btn-close"
-                onClick={logout}
+                onClick={handleLogout}
             >Salir</button>
         </div>
     )

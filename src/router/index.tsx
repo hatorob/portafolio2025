@@ -11,12 +11,17 @@ import { HomeAdmin } from "../admin/pages/HomeAdmin/HomeAdmin";
 import { ExperiencesAdmin } from "../admin/pages/ExperiencesAdmin/ExperiencesAdmin";
 import { ProjectAdmin } from "../admin/pages/ProjectsAdmin/ProjectAdmin";
 import { BlogsAdmin } from "../admin/pages/BlogsAdmin/BlogsAdmin";
+import { Register } from "../pages/Register/Register";
 
 
 export const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />
+    },
+    {
+        path: "/register",
+        element: <Register />
     },
     {
         element: <PublicLayout />,

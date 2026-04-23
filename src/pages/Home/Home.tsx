@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { lazy, useRef } from 'react';
 import { useOnView } from '../../hooks/useOnView';
 import { SkeletonCardProject } from '../../components/Cards/CardProject/SkeletonCardProject';
+import { useProjects } from '../../hooks/projects/useProjects';
 const CardBlog = lazy(() =>
   import("../../components/Cards/CardBlog/CardBlog").then(module => ({ 
     default: module.CardBlog 
@@ -59,7 +60,7 @@ export const Home = () => {
       "git",
   ]
 
-  const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences } = useQuery({
+  /* const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences } = useQuery({
       queryKey: ["experiences"],
       queryFn: async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -68,9 +69,9 @@ export const Home = () => {
         return res.json();
       },
       enabled: false
-  });
+  }); */
 
-  const { data: projects, isLoading: isLoadingProjects, refetch: refectProjects } = useQuery({
+  /* const { data: projects, isLoading: isLoadingProjects, refetch: refectProjects } = useQuery({
       queryKey: ["projects"],
       queryFn: async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -79,9 +80,13 @@ export const Home = () => {
         return res.json();
       },
       enabled: false
-  });
+  }); */
 
-  const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs } = useQuery({
+  const { data: projects, isLoading: isLoadingProjects, refetch: refectProjects, error: errorProjects } = useProjects();
+
+  console.log({projects, isLoadingProjects, errorProjects});
+
+  /* const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs } = useQuery({
       queryKey: ["blogs"],
       queryFn: async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -90,11 +95,11 @@ export const Home = () => {
         return res.json();
       },
       enabled: false
-  });
+  }); */
 
   
-  useOnView(sectionExperiences, refectExperiences);
-  useOnView(sectionBlogs, refectBlogs);
+  /* useOnView(sectionExperiences, refectExperiences);
+  useOnView(sectionBlogs, refectBlogs); */
   useOnView(sectionProjects, refectProjects);
 
 
@@ -125,7 +130,7 @@ export const Home = () => {
       </div>
       <div className="section" ref={sectionExperiences}>
         <h3 className='txt-green'>EXPERIENCIA LABORAL</h3>
-        <div className="container-experience">
+        {/* <div className="container-experience">
           {
             (isLoadingExperiences) 
               ? Array.from({ length: 3 }).map((_, i) => (
@@ -135,7 +140,7 @@ export const Home = () => {
                   <CardExp key={`card_experience_${experience.id}`} experience={experience} />
                 ))
           }
-        </div>
+        </div> */}
       </div>
       <div className="section" ref={sectionProjects}>
         <h3 className='txt-blue'>PROYECTOS</h3>
@@ -155,7 +160,7 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="section" ref={sectionBlogs}>
+      {/* <div className="section" ref={sectionBlogs}>
         <h3>Blogs</h3>
           <div className="container-blogs">
             {
@@ -171,7 +176,7 @@ export const Home = () => {
           <div className='btn-more'>
             <Link to="/blogs">Ver más</Link>
           </div>
-      </div>
+      </div> */}
     </div>
   )
 }
