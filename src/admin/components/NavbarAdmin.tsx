@@ -6,7 +6,6 @@ export const NavbarAdmin = () => {
 
     const { user, logout } = AuthStore();
     const navigate = useNavigate();
-    console.log(user);
 
     return ( user &&
         <div className="container-nav-admin">
