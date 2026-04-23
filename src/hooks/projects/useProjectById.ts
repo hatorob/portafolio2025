@@ -5,7 +5,7 @@ import { ProjectAmplifyRepository } from "../../../core/infraestructure/reposito
 const repository = new ProjectAmplifyRepository();
 const getProjectById = new GetProjectById(repository);
 
-export const useProject = (id: string) => {
+export const useProjectById = (id: string) => {
   return useQuery({
     queryKey: ["project", id],
     queryFn: () => getProjectById.execute(id),

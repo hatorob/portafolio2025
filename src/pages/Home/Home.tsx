@@ -1,11 +1,12 @@
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import { type SkillKey } from '../../components/Skills/Skills';
-import { useQuery } from '@tanstack/react-query';
 import { lazy, useRef } from 'react';
 import { useOnView } from '../../hooks/useOnView';
 import { SkeletonCardProject } from '../../components/Cards/CardProject/SkeletonCardProject';
 import { useProjects } from '../../hooks/projects/useProjects';
+import { useExperiences } from '../../hooks/experiences/useExperiences';
+import { useBlogs } from '../../hooks/blogs/useBlogs';
 const CardBlog = lazy(() =>
   import("../../components/Cards/CardBlog/CardBlog").then(module => ({ 
     default: module.CardBlog 
@@ -60,46 +61,18 @@ export const Home = () => {
       "git",
   ]
 
-  /* const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences } = useQuery({
-      queryKey: ["experiences"],
-      queryFn: async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        const res = await fetch("http://localhost:3000/api/experiences");
-        if (!res.ok) throw new Error("Error al cargar experiencias");
-        return res.json();
-      },
-      enabled: false
-  }); */
-
-  /* const { data: projects, isLoading: isLoadingProjects, refetch: refectProjects } = useQuery({
-      queryKey: ["projects"],
-      queryFn: async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        const res = await fetch("http://localhost:3000/api/projects");
-        if (!res.ok) throw new Error("Error al cargar experiencias");
-        return res.json();
-      },
-      enabled: false
-  }); */
+  const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences, error: errorExperiences } = useExperiences();
 
   const { data: projects, isLoading: isLoadingProjects, refetch: refectProjects, error: errorProjects } = useProjects();
 
+  const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs, error: errorBlogs } = useBlogs();
+
   console.log({projects, isLoadingProjects, errorProjects});
-
-  /* const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs } = useQuery({
-      queryKey: ["blogs"],
-      queryFn: async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        const res = await fetch("http://localhost:3000/api/blogs");
-        if (!res.ok) throw new Error("Error al cargar blogs");
-        return res.json();
-      },
-      enabled: false
-  }); */
-
+  console.log({experiences, isLoadingExperiences, errorExperiences});
+  console.log({blogs, isLoadingBlogs, errorBlogs});
   
-  /* useOnView(sectionExperiences, refectExperiences);
-  useOnView(sectionBlogs, refectBlogs); */
+  useOnView(sectionExperiences, refectExperiences);
+  useOnView(sectionBlogs, refectBlogs);
   useOnView(sectionProjects, refectProjects);
 
 
@@ -130,7 +103,7 @@ export const Home = () => {
       </div>
       <div className="section" ref={sectionExperiences}>
         <h3 className='txt-green'>EXPERIENCIA LABORAL</h3>
-        {/* <div className="container-experience">
+        <div className="container-experience">
           {
             (isLoadingExperiences) 
               ? Array.from({ length: 3 }).map((_, i) => (
@@ -140,7 +113,7 @@ export const Home = () => {
                   <CardExp key={`card_experience_${experience.id}`} experience={experience} />
                 ))
           }
-        </div> */}
+        </div>
       </div>
       <div className="section" ref={sectionProjects}>
         <h3 className='txt-blue'>PROYECTOS</h3>
@@ -160,7 +133,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* <div className="section" ref={sectionBlogs}>
+      <div className="section" ref={sectionBlogs}>
         <h3>Blogs</h3>
           <div className="container-blogs">
             {
@@ -176,7 +149,7 @@ export const Home = () => {
           <div className='btn-more'>
             <Link to="/blogs">Ver más</Link>
           </div>
-      </div> */}
+      </div>
     </div>
   )
 }
