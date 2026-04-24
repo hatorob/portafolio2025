@@ -1,9 +1,10 @@
 import { apiSyncService } from "../api/apySync.service";
-import { ExperienceRepository } from '../../domain/repositories/ExperienceRepository';
+import type { ExperienceRepository } from '../../domain/repositories/ExperienceRepository';
+import type { GetAllOptions } from "../../domain/types/GetAllOptions";
 
 export class ExperienceAmplifyRepository implements ExperienceRepository {
-  async getAll() {
-    return await apiSyncService.getAll("Experience");
+  async getAll(options?: GetAllOptions) {
+    return await apiSyncService.getAll("Experience",options);
   }
 
   async getById(id: string) {

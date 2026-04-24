@@ -1,9 +1,10 @@
 import { apiSyncService } from "../api/apySync.service";
-import { BlogRepository } from '../../domain/repositories/BlogRepository';
+import type { BlogRepository } from '../../domain/repositories/BlogRepository';
+import type { GetAllOptions } from "../../domain/types/GetAllOptions";
 
 export class BlogAmplifyRepository implements BlogRepository {
-  async getAll() {
-    return await apiSyncService.getAll("Blog");
+  async getAll(options?: GetAllOptions) {
+    return await apiSyncService.getAll("Blog",options);
   }
 
   async getById(id: string) {

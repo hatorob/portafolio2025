@@ -12,6 +12,8 @@ export const Project = a
     featured: a.boolean().default(false),
     published: a.boolean().default(false),
     publishedAt: a.datetime(),
+    type: a.enum(["PROFESSIONAL", "ACADEMIC"]),
+    priority: a.integer().default(0),
     adminEmail: a.string(),
   })
   .secondaryIndexes((index) => [

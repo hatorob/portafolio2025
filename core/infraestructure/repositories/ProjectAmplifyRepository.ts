@@ -1,9 +1,10 @@
 import { apiSyncService } from "../api/apySync.service";
 import type { ProjectRepository } from "../../domain/repositories/ProjectRepository";
+import type { GetAllOptions } from "../../domain/types/GetAllOptions";
 
 export class ProjectAmplifyRepository implements ProjectRepository {
-  async getAll() {
-    return await apiSyncService.getAll("Project");
+  async getAll(options?: GetAllOptions) {
+    return await apiSyncService.getAll("Project", options);
   }
 
   async getById(id: string) {

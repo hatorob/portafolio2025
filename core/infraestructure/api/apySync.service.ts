@@ -1,5 +1,6 @@
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../../../amplify/data/resource';
+import { GetAllOptions } from '../../domain/types/GetAllOptions';
 
 const client = generateClient<Schema>();
 
@@ -17,11 +18,15 @@ const handleErrors = (errors: any, type: IModels, action: string) => {
 };
 
 export const apiSyncService = {
-  async getAll(type: IModels, limit?: number, filter?: any): Promise<any> {
+  async getAll(type: IModels, options?: GetAllOptions): Promise<any> {
     try {
       const params: Record<string, any> = {};
-      if (limit) params.limit = limit;
-      if (filter) params.filter = filter;
+      
+      if (options?.limit && !options?.orderBy) {
+        params.limit = options.limit;
+      }
+
+      if (options?.filter) params.filter = options.filter;
 
       const { data, errors } = await getClient(type).list({
         ...params,
@@ -29,7 +34,35 @@ export const apiSyncService = {
       });
 
       handleErrors(errors, type, 'fetching list');
-      return data;
+      let result = data ?? [];
+
+      if (options?.orderBy) {
+        const { field, direction } = options.orderBy;
+      
+        result = [...result].sort((a, b) => {
+          const aValue = a?.[field];
+          const bValue = b?.[field];
+      
+          if (!aValue && !bValue) return 0;
+          if (!aValue) return 1;
+          if (!bValue) return -1;
+      
+          if (typeof aValue === "number" && typeof bValue === "number") {
+            return direction === "desc" ? bValue - aValue : aValue - bValue;
+          }
+      
+          const aTime = new Date(aValue).getTime();
+          const bTime = new Date(bValue).getTime();
+      
+          return direction === "desc" ? bTime - aTime : aTime - bTime;
+        });
+      }
+      
+      if (options?.limit && options?.orderBy) {
+        result = result.slice(0, options.limit);
+      }
+
+      return result;
     } catch (error) {
       console.error(`[apiSyncService] Unhandled exception in list(${String(type)}):`, error);
       throw error;

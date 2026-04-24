@@ -19,6 +19,8 @@ type ProjectForm = {
   published?: boolean;
   publishedAt?: string;
   adminEmail?: string;
+  priority?: number;
+  type?: string;
 };
 
 export const ProjectAdmin = () => {
@@ -54,6 +56,8 @@ export const ProjectAdmin = () => {
       published: false,
       publishedAt: "",
       adminEmail: "",
+      type: "",
+      priority:0,
     });
     setIsModalOpen(true);
   };
@@ -75,6 +79,8 @@ export const ProjectAdmin = () => {
         ? project.publishedAt.slice(0, 16)
         : "",
       adminEmail: project.adminEmail ?? "",
+      priority: project.priority ?? "",
+      type: project.type ?? "",
     });
 
     setIsModalOpen(true);
@@ -114,6 +120,8 @@ export const ProjectAdmin = () => {
       featured: !!data.featured,
       published: !!data.published,
       adminEmail: data.adminEmail || "",
+      priority: data.priority || 0,
+      type: data.type || "",
     };
 
     if (data.published) {
@@ -274,8 +282,16 @@ export const ProjectAdmin = () => {
               </div>
 
               <div>
-                <label>Admin email</label>
-                <input type="email" {...register("adminEmail")} />
+                <label>Tipo</label>
+                <select {...register("type", { required: true })}>
+                  <option value="PROFESSIONAL">Profesional</option>
+                  <option value="ACADEMIC">Académico</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Prioridad</label>
+                <input type="number" {...register("priority", { valueAsNumber: true })} />
               </div>
 
               <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>

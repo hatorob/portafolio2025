@@ -42,7 +42,8 @@ const SkeletonBlog = lazy(() =>
 export const Home = () => {
 
   const sectionExperiences = useRef<HTMLDivElement | null>(null);
-  const sectionProjects = useRef<HTMLDivElement | null>(null);
+  const sectionProjectsProfessional = useRef<HTMLDivElement | null>(null);
+  const sectionProjectsAcademic = useRef<HTMLDivElement | null>(null);
   const sectionBlogs = useRef<HTMLDivElement | null>(null);
 
   const skills: SkillKey[] = [
@@ -61,22 +62,42 @@ export const Home = () => {
       "git",
   ]
 
-  const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences, error: errorExperiences } = useExperiences();
+  const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences, error: errorExperiences } = useExperiences({
+    orderBy: {
+      field: "dateEnd",
+      direction: "desc"
+    }
+  });
 
-  const { data: projects, isLoading: isLoadingProjects, refetch: refectProjects, error: errorProjects } = useProjects();
+  const { data: projectsProfessional, isLoading: isLoadingProjectsProfessional, refetch: refectProjectsProfessional, error: errorProjectsProfessional } = useProjects({
+    filter: {
+      type: { eq: "PROFESSIONAL" }
+    },
+    limit: 5,
+    orderBy: {
+      field: "priority",
+      direction: "asc"
+    }
+  });
+  
+  const { data: projectsAcademic, isLoading: isLoadingProjectsAcademic, refetch: refectProjectsAcademic, error: errorProjectsAcademic } = useProjects({
+    filter: {
+      type: { eq: "ACADEMIC" }
+    },
+    limit: 5,
+    orderBy: {
+      field: "priority",
+      direction: "asc"
+    }
+  });
 
   const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs, error: errorBlogs } = useBlogs();
 
-  const sortedExperiences = [...(experiences ?? [])].sort((a, b) => {
-    const dateA = new Date(a.dateEnd || a.dateInit).getTime();
-    const dateB = new Date(b.dateEnd || b.dateInit).getTime();
-
-    return dateB - dateA;
-  });
   
   useOnView(sectionExperiences, refectExperiences);
   useOnView(sectionBlogs, refectBlogs);
-  useOnView(sectionProjects, refectProjects);
+  useOnView(sectionProjectsProfessional, refectProjectsProfessional);
+  useOnView(sectionProjectsAcademic, refectProjectsAcademic);
 
 
 
@@ -109,25 +130,43 @@ export const Home = () => {
         <div className="container-experience">
           {
             (isLoadingExperiences) 
-              ? Array.from({ length: 3 }).map((_, i) => (
+              ? Array.from({ length: 4 }).map((_, i) => (
                   <SkeletonCardExp key={`skeleton_card_experience_${i}`} />
                 ))
-              : (sortedExperiences ?? []).map((experience) => (
+              : (experiences ?? []).map((experience) => (
                   <CardExp key={`card_experience_${experience.id}`} experience={experience} />
                 ))
           }
         </div>
       </div>
-      <div className="section" ref={sectionProjects}>
-        <h3 className='txt-blue'>PROYECTOS</h3>
+      <div className="section" ref={sectionProjectsProfessional}>
+        <h3 className='txt-blue'>PROYECTOS PROFESIONALES</h3>
         <div className="container-projects">
           {
-            (isLoadingProjects)
-              ? Array.from({ length: 4 }).map( (_,i) => (
-                  <SkeletonCardProject key={`skeleton_card_project_${i}`} index={i} />
+            (isLoadingProjectsProfessional)
+              ? Array.from({ length: 5 }).map( (_,i) => (
+                  <SkeletonCardProject key={`skeleton_card_project_professional_${i}`} index={i} />
                 ))
-              : (projects ?? []).map( (project, index) => {
-              return <CardProject key={`card_project_${project.id}`} project={project} index={index}/>
+              : (projectsProfessional ?? []).map( (project, index) => {
+              return <CardProject key={`card_project_professional_${project.id}`} project={project} index={index}/>
+            })
+          }
+        </div>
+        <div className='btn-more'>
+          <Link to="/proyectos">Ver más</Link>
+        </div>
+      </div>
+
+      <div className="section" ref={sectionProjectsAcademic}>
+        <h3 className='txt-green'>PROYECTOS ACADÉMICOS</h3>
+        <div className="container-projects">
+          {
+            (isLoadingProjectsAcademic)
+              ? Array.from({ length: 4 }).map( (_,i) => (
+                  <SkeletonCardProject key={`skeleton_card_project_academic_${i}`} index={i} />
+                ))
+              : (projectsAcademic ?? []).map( (project, index) => {
+              return <CardProject key={`card_project_academic_${project.id}`} project={project} index={index}/>
             })
           }
         </div>

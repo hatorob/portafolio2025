@@ -19,7 +19,6 @@ interface Experience {
 
 
 export const CardExp = ({experience}: Props) => {
-    console.log(experience);
     return (
         <div className="container-cardExp">
             <div className="header">
