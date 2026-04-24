@@ -1,5 +1,6 @@
 import "./CardProject.scss";
 import { Skills, type SkillKey } from "../../Skills/Skills";
+import { useStorageUrl } from "../../../hooks/storage/useStorageUrl";
 
 type Props = {
     project: Project;
@@ -8,27 +9,29 @@ type Props = {
 
 export interface Project {
     id: number;
-    titule: string;
-    img: string;
-    url: string;
-    desc_short: string;
+    title: string;
+    imageKey: string;
+    demoUrl: string;
+    shortDescription: string;
     skills: SkillKey[];
 }
 
 export const CardProject = ({project, index}: Props) => {
 
-    const { titule, img, url, desc_short, skills } = project;
+    const { title, imageKey, demoUrl, shortDescription, skills } = project;
+
+    const imageUrl = useStorageUrl(imageKey);
 
     return (
         <div className={`card-project ${index % 2 === 0 ? "left" : "right"}`}>
             <div className="card-project-container-img">
-                <a href={`${url}`} target="_blank">
-                    <img className="card-project-img" src={`${img}`} alt="imagen portada proyecto" loading='lazy' />
+                <a href={`${demoUrl}`} target="_blank">
+                    <img className="card-project-img" src={`${imageUrl}`} alt="imagen portada proyecto" loading='lazy' />
                 </a>
             </div>
             <div className="card-project-container-desc">
-                <h4 className="txt-blue">{titule}</h4>
-                <p>{desc_short}</p>
+                <h4 className="txt-blue">{title}</h4>
+                <p>{shortDescription}</p>
                 <Skills skills={skills}/>
             </div>
         </div>

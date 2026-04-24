@@ -4,12 +4,14 @@ import { useProjects } from "../../../hooks/projects/useProjects";
 import { useCreateProject } from "../../../hooks/projects/useCreateProject";
 import { useUpdateProject } from "../../../hooks/projects/useUpdateProject";
 import { useDeleteProject } from "../../../hooks/projects/useDeleteProject";
+import { storageService } from '../../../services/storage.service';
 
 type ProjectForm = {
   title: string;
   slug: string;
   shortDescription: string;
   imageKey?: string;
+  imageFile?: FileList;
   demoUrl?: string;
   repoUrl?: string;
   skills?: string;
@@ -83,12 +85,29 @@ export const ProjectAdmin = () => {
     setSelectedProject(null);
   };
 
-  const onSubmit = (data: ProjectForm) => {
+  const onSubmit = async (data: ProjectForm) => {
+
+    let imageKey = selectedProject?.imageKey || "";
+    const file = data.imageFile?.[0];
+
+    if (file) {
+      // 1. subir nueva imagen
+      const newImageKey = await storageService.uploadProjectImage(file);
+
+      // 2. eliminar la anterior (si existe)
+      if (imageKey) {
+        await storageService.removeFile(imageKey);
+      }
+
+      // 3. usar la nueva
+      imageKey = newImageKey;
+    }
+
     const payload: any = {
       title: data.title,
       slug: data.slug,
       shortDescription: data.shortDescription,
-      imageKey: data.imageKey || "",
+      imageKey,
       demoUrl: data.demoUrl || undefined,
       repoUrl: data.repoUrl || undefined,
       skills: normalizeArray(data.skills),
@@ -119,6 +138,7 @@ export const ProjectAdmin = () => {
     createProject(payload, {
       onSuccess: closeModal,
     });
+
   };
 
   const handleDelete = () => {
@@ -213,9 +233,10 @@ export const ProjectAdmin = () => {
                 />
               </div>
 
+
               <div>
-                <label>Image key</label>
-                <input type="text" {...register("imageKey")} />
+                <label>Image Del Proyecto</label>
+                <input type="file" accept="image/*" {...register("imageFile")} />
               </div>
 
               <div>

@@ -67,9 +67,12 @@ export const Home = () => {
 
   const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs, error: errorBlogs } = useBlogs();
 
-  console.log({projects, isLoadingProjects, errorProjects});
-  console.log({experiences, isLoadingExperiences, errorExperiences});
-  console.log({blogs, isLoadingBlogs, errorBlogs});
+  const sortedExperiences = [...(experiences ?? [])].sort((a, b) => {
+    const dateA = new Date(a.dateEnd || a.dateInit).getTime();
+    const dateB = new Date(b.dateEnd || b.dateInit).getTime();
+
+    return dateB - dateA;
+  });
   
   useOnView(sectionExperiences, refectExperiences);
   useOnView(sectionBlogs, refectBlogs);
@@ -109,7 +112,7 @@ export const Home = () => {
               ? Array.from({ length: 3 }).map((_, i) => (
                   <SkeletonCardExp key={`skeleton_card_experience_${i}`} />
                 ))
-              : (experiences ?? []).map((experience) => (
+              : (sortedExperiences ?? []).map((experience) => (
                   <CardExp key={`card_experience_${experience.id}`} experience={experience} />
                 ))
           }
