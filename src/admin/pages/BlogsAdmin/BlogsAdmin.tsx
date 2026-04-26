@@ -14,13 +14,15 @@ const BlogCard = ({ blog, onClick }: { blog: any; onClick: () => void }) => {
         padding: "12px",
         marginBottom: "10px",
         cursor: "pointer",
+        display: "flex",
+        flexDirection: "column"
       }}
     >
       {imageUrl && (
         <img
           src={imageUrl}
           alt={blog.title}
-          style={{ width: "120px", height: "80px", objectFit: "cover" }}
+          style={{ width: "100%", height: "80px", objectFit: "cover" }}
         />
       )}
 
@@ -75,7 +77,13 @@ export const BlogsAdmin = () => {
 
       {sortedBlogs.length === 0 && <p>No hay blogs creados.</p>}
 
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4,1fr)",
+          gap: "2rem"
+        }}
+      >
         {sortedBlogs.map((blog: any) => (
           <BlogCard
             key={blog.id}

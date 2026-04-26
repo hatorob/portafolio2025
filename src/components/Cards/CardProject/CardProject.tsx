@@ -4,7 +4,8 @@ import { useStorageUrl } from "../../../hooks/storage/useStorageUrl";
 
 type Props = {
     project: Project;
-    index: number
+    index: number;
+    isHome: boolean;
 }
 
 export interface Project {
@@ -16,14 +17,14 @@ export interface Project {
     skills: SkillKey[];
 }
 
-export const CardProject = ({project, index}: Props) => {
+export const CardProject = ({project, index, isHome}: Props) => {
 
     const { title, imageKey, demoUrl, shortDescription, skills } = project;
 
     const imageUrl = useStorageUrl(imageKey);
 
     return (
-        <div className={`card-project ${index % 2 === 0 ? "left" : "right"}`}>
+        <div className={(isHome) ? `card-project ${index % 2 === 0 ? "left" : "right"}` : "card-project-grid"}>
             <div className="card-project-container-img">
                 <a href={`${demoUrl}`} target="_blank">
                     <img className="card-project-img" src={`${imageUrl}`} alt="imagen portada proyecto" loading='lazy' />

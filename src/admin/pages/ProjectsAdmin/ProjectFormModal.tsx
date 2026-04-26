@@ -159,10 +159,10 @@ export const ProjectFormModal = ({ isOpen, selectedProject, onClose }: Props) =>
       }}
     >
       <div
+        className="container-form"
         style={{
           background: "#fff",
           padding: "20px",
-          width: "600px",
           maxWidth: "90%",
           maxHeight: "90vh",
           overflow: "auto",
@@ -171,106 +171,118 @@ export const ProjectFormModal = ({ isOpen, selectedProject, onClose }: Props) =>
         <h2>{selectedProject ? "Editar proyecto" : "Crear proyecto"}</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label>Título</label>
-            <input type="text" {...register("title", { required: true })} />
-          </div>
+          <div className="form">
+            <div className="form-items form-fields">
+              <div>
+                <label>Título</label>
+                <input type="text" {...register("title", { required: true })} />
+              </div>
 
-          <div>
-            <label>Slug</label>
-            <input type="text" {...register("slug", { required: true })} />
-          </div>
+              <div>
+                <label>Slug</label>
+                <input type="text" {...register("slug", { required: true })} />
+              </div>
 
-          <div>
-            <label>Descripción corta</label>
-            <textarea {...register("shortDescription", { required: true })} />
-          </div>
+              <div>
+                <label>Demo URL</label>
+                <input type="url" {...register("demoUrl")} />
+              </div>
 
-          <div>
-            <label>Imagen del proyecto</label>
-            <input type="file" accept="image/*" {...register("imageFile")} />
-          </div>
+              <div>
+                <label>Repo URL</label>
+                <input type="url" {...register("repoUrl")} />
+              </div>
 
-          {selectedProject?.imageKey && (
-            <small>Imagen actual: {selectedProject.imageKey}</small>
-          )}
+              <div>
+                <label>Skills separadas por coma</label>
+                <input type="text" {...register("skills")} />
+              </div>
 
-          <div>
-            <label>Demo URL</label>
-            <input type="url" {...register("demoUrl")} />
-          </div>
+              <div>
+                <label>Tipo</label>
+                <select {...register("type", { required: true })}>
+                  <option value="PROFESSIONAL">Profesional</option>
+                  <option value="ACADEMIC">Académico</option>
+                </select>
+              </div>
 
-          <div>
-            <label>Repo URL</label>
-            <input type="url" {...register("repoUrl")} />
-          </div>
+              <div>
+                <label>Prioridad</label>
+                <input
+                  type="number"
+                  {...register("priority", { valueAsNumber: true })}
+                />
+              </div>
+              
+              <div>
+                <label>Fecha publicación</label>
+                <input type="datetime-local" {...register("publishedAt")} />
+              </div>
 
-          <div>
-            <label>Skills separadas por coma</label>
-            <input type="text" {...register("skills")} />
-          </div>
+              <div>
+                <label>
+                  <input type="checkbox" {...register("featured")} />
+                  Destacado
+                </label>
+              </div>
 
-          <div>
-            <label>Tipo</label>
-            <select {...register("type", { required: true })}>
-              <option value="PROFESSIONAL">Profesional</option>
-              <option value="ACADEMIC">Académico</option>
-            </select>
-          </div>
+              <div>
+                <label>
+                  <input type="checkbox" {...register("published")} />
+                  Publicado
+                </label>
+              </div>
 
-          <div>
-            <label>Prioridad</label>
-            <input
-              type="number"
-              {...register("priority", { valueAsNumber: true })}
-            />
-          </div>
+              {/* <div>
+                <label>Admin email</label>
+                <input type="email" {...register("adminEmail")} />
+              </div> */}
 
-          <div>
-            <label>
-              <input type="checkbox" {...register("featured")} />
-              Destacado
-            </label>
-          </div>
+            </div>
 
-          <div>
-            <label>
-              <input type="checkbox" {...register("published")} />
-              Publicado
-            </label>
-          </div>
+            <div className="form-fields txt">
+              <div>
+                <label>Descripción corta</label>
+                <textarea rows={5} {...register("shortDescription", { required: true })} />
+              </div>
 
-          <div>
-            <label>Fecha publicación</label>
-            <input type="datetime-local" {...register("publishedAt")} />
-          </div>
+              <div>
+                <label>Imagen del proyecto</label>
+                <input type="file" accept="image/*" {...register("imageFile")} />
+              </div>
 
-          <div>
-            <label>Admin email</label>
-            <input type="email" {...register("adminEmail")} />
-          </div>
+              {selectedProject?.imageKey && (
+                <small>Imagen actual: {selectedProject.imageKey}</small>
+              )}
+            </div>
 
-          <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
-            <button type="submit" disabled={isCreating || isUpdating}>
-              {selectedProject
-                ? isUpdating
-                  ? "Actualizando..."
-                  : "Actualizar"
-                : isCreating
-                ? "Creando..."
-                : "Crear"}
-            </button>
-
-            <button type="button" onClick={onClose}>
-              Cancelar
-            </button>
-
-            {selectedProject && (
-              <button type="button" onClick={handleDelete} disabled={isDeleting}>
-                {isDeleting ? "Eliminando..." : "Eliminar"}
+            <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+              <button type="submit" disabled={isCreating || isUpdating}>
+                {selectedProject
+                  ? isUpdating
+                    ? "Actualizando..."
+                    : "Actualizar"
+                  : isCreating
+                  ? "Creando..."
+                  : "Crear"}
               </button>
-            )}
+
+              <button type="button" onClick={onClose}>
+                Cancelar
+              </button>
+
+              {selectedProject && (
+                <button type="button" onClick={handleDelete} disabled={isDeleting}>
+                  {isDeleting ? "Eliminando..." : "Eliminar"}
+                </button>
+              )}
+            </div>
+
           </div>
+
+
+          
+
         </form>
       </div>
     </div>

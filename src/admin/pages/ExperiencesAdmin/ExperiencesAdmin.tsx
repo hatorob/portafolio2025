@@ -47,7 +47,13 @@ export const ExperiencesAdmin = () => {
 
       {sortedExperiences.length === 0 && <p>No hay experiencias creadas.</p>}
 
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4,1fr)",
+          gap: "2rem"
+        }}
+      >
         {sortedExperiences.map((experience: any) => (
           <div
             key={experience.id}

@@ -14,22 +14,26 @@ const ProjectCard = ({ project, onClick }: { project: any; onClick: () => void }
         padding: "12px",
         marginBottom: "10px",
         cursor: "pointer",
+        display: "flex",
+        flexDirection: "column"
       }}
     >
       {imageUrl && (
         <img
           src={imageUrl}
           alt={project.title}
-          style={{ width: "120px", height: "80px", objectFit: "cover" }}
+          style={{ width: "100%", height: "80px", objectFit: "cover" }}
         />
       )}
-
       <h3>{project.title}</h3>
-      <p>{project.shortDescription}</p>
 
       <small>
         Slug: {project.slug} | {project.published ? "Publicado" : "Borrador"} |{" "}
-        {project.featured ? "Destacado" : "Normal"} | {project.type}
+        {project.featured ? "Destacado" : "Normal"}
+      </small>
+      
+      <small>
+        Priority: {project.priority} | {project.type}
       </small>
     </div>
   );
@@ -73,7 +77,13 @@ export const ProjectAdmin = () => {
 
       {sortedProjects.length === 0 && <p>No hay proyectos creados.</p>}
 
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4,1fr)",
+          gap: "2rem"
+        }}
+      >
         {sortedProjects.map((project: any) => (
           <ProjectCard
             key={project.id}

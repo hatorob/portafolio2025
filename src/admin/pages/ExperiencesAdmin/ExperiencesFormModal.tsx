@@ -118,10 +118,10 @@ export const ExperienceFormModal = ({
       }}
     >
       <div
+        className="container-form"
         style={{
           background: "#fff",
           padding: "20px",
-          width: "600px",
           maxWidth: "90%",
           maxHeight: "90vh",
           overflow: "auto",
@@ -132,77 +132,80 @@ export const ExperienceFormModal = ({
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label>Empresa</label>
-            <input type="text" {...register("company", { required: true })} />
-          </div>
+          <div className="form">
+            <div className="form-items form-fields">
+              <div>
+                <label>Empresa</label>
+                <input type="text" {...register("company", { required: true })} />
+              </div>
+              <div>
+                <label>Rol</label>
+                <input type="text" {...register("role", { required: true })} />
+              </div>
 
-          <div>
-            <label>Descripción Empresa</label>
-            <textarea {...register("companyDescription")} />
-          </div>
+              <div>
+                <label>Área</label>
+                <input type="text" {...register("area")} />
+              </div>
 
-          <div>
-            <label>Rol</label>
-            <input type="text" {...register("role", { required: true })} />
-          </div>
+              <div>
+                <label>Responsabilidades separadas por coma</label>
+                <textarea {...register("responsibilities")} />
+              </div>
 
-          <div>
-            <label>Área</label>
-            <input type="text" {...register("area")} />
-          </div>
+              <div>
+                <label>Skills separadas por coma</label>
+                <input type="text" {...register("skills")} />
+              </div>
 
-          <div>
-            <label>Responsabilidades separadas por coma</label>
-            <textarea {...register("responsibilities")} />
-          </div>
+              <div>
+                <label>Fecha de inicio</label>
+                <input type="date" {...register("dateInit", { required: true })} />
+              </div>
 
-          <div>
-            <label>Skills separadas por coma</label>
-            <input type="text" {...register("skills")} />
-          </div>
+              <div>
+                <label>Fecha final</label>
+                <input type="date" {...register("dateEnd")} />
+              </div>
 
-          <div>
-            <label>Fecha de inicio</label>
-            <input type="date" {...register("dateInit", { required: true })} />
-          </div>
-
-          <div>
-            <label>Fecha final</label>
-            <input type="date" {...register("dateEnd")} />
-          </div>
-
-          <div>
-            <label>
-              <input type="checkbox" {...register("current")} />
-              Trabajo actual
-            </label>
-          </div>
-
-          <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
-            <button type="submit" disabled={isCreating || isUpdating}>
-              {selectedExperience
-                ? isUpdating
-                  ? "Actualizando..."
-                  : "Actualizar"
-                : isCreating
-                ? "Creando..."
-                : "Crear"}
-            </button>
-
-            <button type="button" onClick={onClose}>
-              Cancelar
-            </button>
-
-            {selectedExperience && (
-              <button
-                type="button"
-                onClick={handleDelete}
-                disabled={isDeleting}
-              >
-                {isDeleting ? "Eliminando..." : "Eliminar"}
+              <div>
+                <label>
+                  <input type="checkbox" {...register("current")} />
+                  Trabajo actual
+                </label>
+              </div>
+            </div>
+            <div className="form-fields-txt">
+              <div>
+                <label>Descripción Empresa</label>
+                <textarea {...register("companyDescription")} rows={6} cols={60}/>
+              </div>
+            </div>
+            <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+              <button type="submit" disabled={isCreating || isUpdating}>
+                {selectedExperience
+                  ? isUpdating
+                    ? "Actualizando..."
+                    : "Actualizar"
+                  : isCreating
+                  ? "Creando..."
+                  : "Crear"}
               </button>
-            )}
+
+              <button type="button" onClick={onClose}>
+                Cancelar
+              </button>
+
+              {selectedExperience && (
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? "Eliminando..." : "Eliminar"}
+                </button>
+              )}
+            </div>
           </div>
         </form>
       </div>

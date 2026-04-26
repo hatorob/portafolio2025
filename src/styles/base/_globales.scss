@@ -224,3 +224,52 @@ a  { font-size: 1.7rem; } // 15px
     color: v.$negro;
   }
 }
+
+.container-form {
+  width: 1000px;
+  color: black;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-fields div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-fields-txt div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-custom::placeholder {
+  color: #00c3ef;
+  opacity: 1;
+}
+
+.container-filters {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 0;
+  gap: 3rem;
+}
+
+@include m.tablet {
+  .container-filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+}

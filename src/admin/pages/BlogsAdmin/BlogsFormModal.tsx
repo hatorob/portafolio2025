@@ -144,10 +144,10 @@ export const BlogFormsModal = ({ isOpen, selectedBlog, onClose }: Props) => {
       }}
     >
       <div
+        className="container-form"
         style={{
           background: "#fff",
           padding: "20px",
-          width: "650px",
           maxWidth: "90%",
           maxHeight: "90vh",
           overflow: "auto",
@@ -156,72 +156,79 @@ export const BlogFormsModal = ({ isOpen, selectedBlog, onClose }: Props) => {
         <h2>{selectedBlog ? "Editar blog" : "Crear blog"}</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label>Título</label>
-            <input type="text" {...register("title", { required: true })} />
-          </div>
+          <div className="form">
+            <div className="form-items form-fields">
+              <div>
+                <label>Título</label>
+                <input type="text" {...register("title", { required: true })} />
+              </div>
 
-          <div>
-            <label>Slug</label>
-            <input type="text" {...register("slug", { required: true })} />
-          </div>
+              <div>
+                <label>Slug</label>
+                <input type="text" {...register("slug", { required: true })} />
+              </div>
 
-          <div>
-            <label>Descripción corta</label>
-            <textarea {...register("shortDescription", { required: true })} />
-          </div>
+              <div>
+                <label>Skills separadas por coma</label>
+                <input type="text" {...register("skills")} />
+              </div>
 
-          <div>
-            <label>Contenido</label>
-            <textarea rows={8} {...register("content", { required: true })} />
-          </div>
+              <div>
+                <label>
+                  <input type="checkbox" {...register("published")} />
+                  Publicado
+                </label>
+              </div>
 
-          <div>
-            <label>Imagen de portada</label>
-            <input type="file" accept="image/*" {...register("coverImageFile")} />
-          </div>
+              <div>
+                <label>Fecha publicación</label>
+                <input type="datetime-local" {...register("publishedAt")} />
+              </div>
 
-          {selectedBlog?.coverImageKey && (
-            <small>Imagen actual: {selectedBlog.coverImageKey}</small>
-          )}
+            </div>
 
-          <div>
-            <label>Skills separadas por coma</label>
-            <input type="text" {...register("skills")} />
-          </div>
+            <div className="form-fields-txt">
+              <div>
+                <label>Contenido</label>
+                <textarea rows={8} {...register("content", { required: true })} />
+              </div>
 
-          <div>
-            <label>
-              <input type="checkbox" {...register("published")} />
-              Publicado
-            </label>
-          </div>
+              <div>
+                <label>Descripción corta</label>
+                <textarea rows={4} {...register("shortDescription", { required: true })} />
+              </div>
 
-          <div>
-            <label>Fecha publicación</label>
-            <input type="datetime-local" {...register("publishedAt")} />
-          </div>
+              <div>
+                <label>Imagen de portada</label>
+                <input type="file" accept="image/*" {...register("coverImageFile")} />
+              </div>
 
-          <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
-            <button type="submit" disabled={isCreating || isUpdating}>
-              {selectedBlog
-                ? isUpdating
-                  ? "Actualizando..."
-                  : "Actualizar"
-                : isCreating
-                ? "Creando..."
-                : "Crear"}
-            </button>
+              {selectedBlog?.coverImageKey && (
+                <small>Imagen actual: {selectedBlog.coverImageKey}</small>
+              )}
+            </div>
 
-            <button type="button" onClick={onClose}>
-              Cancelar
-            </button>
-
-            {selectedBlog && (
-              <button type="button" onClick={handleDelete} disabled={isDeleting}>
-                {isDeleting ? "Eliminando..." : "Eliminar"}
+            <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+              <button type="submit" disabled={isCreating || isUpdating}>
+                {selectedBlog
+                  ? isUpdating
+                    ? "Actualizando..."
+                    : "Actualizar"
+                  : isCreating
+                  ? "Creando..."
+                  : "Crear"}
               </button>
-            )}
+
+              <button type="button" onClick={onClose}>
+                Cancelar
+              </button>
+
+              {selectedBlog && (
+                <button type="button" onClick={handleDelete} disabled={isDeleting}>
+                  {isDeleting ? "Eliminando..." : "Eliminar"}
+                </button>
+              )}
+            </div>
           </div>
         </form>
       </div>

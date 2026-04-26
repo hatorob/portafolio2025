@@ -91,7 +91,13 @@ export const Home = () => {
     }
   });
 
-  const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs, error: errorBlogs } = useBlogs();
+  const { data: blogs, isLoading: isLoadingBlogs, refetch: refectBlogs, error: errorBlogs } = useBlogs({
+    limit: 3,
+    orderBy: {
+      field: "createdAt",
+      direction: "desc"
+    }
+  });
 
   
   useOnView(sectionExperiences, refectExperiences);
@@ -148,7 +154,7 @@ export const Home = () => {
                   <SkeletonCardProject key={`skeleton_card_project_professional_${i}`} index={i} />
                 ))
               : (projectsProfessional ?? []).map( (project, index) => {
-              return <CardProject key={`card_project_professional_${project.id}`} project={project} index={index}/>
+              return <CardProject key={`card_project_professional_${project.id}`} project={project} index={index} isHome={true}/>
             })
           }
         </div>
@@ -166,7 +172,7 @@ export const Home = () => {
                   <SkeletonCardProject key={`skeleton_card_project_academic_${i}`} index={i} />
                 ))
               : (projectsAcademic ?? []).map( (project, index) => {
-              return <CardProject key={`card_project_academic_${project.id}`} project={project} index={index}/>
+              return <CardProject key={`card_project_academic_${project.id}`} project={project} index={index} isHome={true}/>
             })
           }
         </div>
@@ -184,7 +190,7 @@ export const Home = () => {
                     <SkeletonBlog key={`skeleton_card_blog_${i}`} index={i} />
                   ))
                 : (blogs ?? []).map( (blog, index) => {
-                    return <CardBlog key={`card_blog_${blog.id}`} blog={blog} index={index}/>
+                    return <CardBlog key={`card_blog_${blog.id}`} blog={blog} index={index} isHome={true}/>
                   })
             }
           </div>
