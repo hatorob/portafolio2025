@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import { Navbar } from "../components/Navbar/Navbar"
 import { Footer } from "../components/Footer/Footer"
+import { FloatingSocialLinks } from "../components/FloatingSocialLinks/FloatingSocialLinks"
 
 export const PublicLayout = () => {
   return (
@@ -8,6 +9,7 @@ export const PublicLayout = () => {
       <Navbar />
       <div className="main-content">
         <Outlet />
+        <FloatingSocialLinks />
       </div>
       <Footer />
     </div>

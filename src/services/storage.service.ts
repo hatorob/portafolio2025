@@ -16,6 +16,22 @@ export const storageService = {
 
     return path;
   },
+  
+  async uploadProfileImage(file: File) {
+    const extension = file.name.split(".").pop();
+    const fileName = `${crypto.randomUUID()}.${extension}`;
+    const path = `profiles/${fileName}`;
+
+    await uploadData({
+      path,
+      data: file,
+      options: {
+        contentType: file.type,
+      },
+    }).result;
+
+    return path;
+  },
 
   async uploadBlogImage(file: File) {
     const extension = file.name.split(".").pop();

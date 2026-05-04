@@ -1,12 +1,15 @@
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import { type SkillKey } from '../../components/Skills/Skills';
-import { lazy, useRef } from 'react';
+import { lazy, useEffect, useRef } from 'react';
 import { useOnView } from '../../hooks/useOnView';
 import { SkeletonCardProject } from '../../components/Cards/CardProject/SkeletonCardProject';
 import { useProjects } from '../../hooks/projects/useProjects';
 import { useExperiences } from '../../hooks/experiences/useExperiences';
 import { useBlogs } from '../../hooks/blogs/useBlogs';
+import { useProfiles } from '../../hooks/profiles/useProfiles';
+import { useStorageUrl } from '../../hooks/storage/useStorageUrl';
+import { ProfileStore } from '../../store/ProfileStore';
 const CardBlog = lazy(() =>
   import("../../components/Cards/CardBlog/CardBlog").then(module => ({ 
     default: module.CardBlog 
@@ -45,6 +48,7 @@ export const Home = () => {
   const sectionProjectsProfessional = useRef<HTMLDivElement | null>(null);
   const sectionProjectsAcademic = useRef<HTMLDivElement | null>(null);
   const sectionBlogs = useRef<HTMLDivElement | null>(null);
+  const { setProfile } = ProfileStore();
 
   const skills: SkillKey[] = [
       "html",
@@ -61,6 +65,25 @@ export const Home = () => {
       "postgresql",
       "git",
   ]
+
+  const { data: perfil, isLoading: isLoadingPerfil, refetch: refectPerfil, error: errorPerfil } = useProfiles();
+
+  const imageMe = useStorageUrl(perfil && perfil[0].photo || "");
+  const cvUrl = useStorageUrl(perfil && perfil[0].cv || "");
+
+  useEffect(() => {
+    if(perfil != undefined) {
+      setProfile({
+        cv: cvUrl,
+        mediaSocial:
+          typeof perfil[0]?.mediaSocial === "string"
+            ? JSON.parse(perfil[0]?.mediaSocial)
+            : perfil[0]?.mediaSocial,
+      });
+    }
+  }, [perfil,cvUrl,setProfile])
+  
+
 
   const { data: experiences, isLoading: isLoadingExperiences, refetch: refectExperiences, error: errorExperiences } = useExperiences({
     orderBy: {
@@ -114,22 +137,22 @@ export const Home = () => {
           <p>Yo soy, 
             <br /> 
             <span className='txt-green'>
-              Alejandro Toro 
+              { perfil && perfil[0].fullName ||"Alejandro Toro"}
             </span>
             <br /> 
             <span className='txt-blue'>
-              Desarrollador Web Full Stack e ingeniero de telecomunicaciones
+              { perfil && perfil[0].role ||"Desarrollador Web Full Stack e ingeniero de telecomunicaciones"}
             </span>
           </p>
         </div>
-        <img className="img-me" src="/me.png" alt="imagen desarrollador" width={400} height={400} loading='lazy' />
+        <img className="img-me" src={imageMe} alt="imagen desarrollador" width={400} height={400} loading='lazy' />
         <div className='info-desc-two'>
           <p>Apasionado por el mundo IT, con más de <span className='txt-blue'>4 años de experiencia</span> laboral entre <span className='txt-green'>ingeniero y desarrollador.</span></p>
         </div>
       </div>
       <div className="section">
         <h3>HABILIDADES <span className='txt-green'>FRONTEND</span> - <span className='txt-blue'>BACKEND</span> </h3>
-        <Skills skills={skills}/>
+        <Skills skills={perfil && perfil[0].skills }/>
       </div>
       <div className="section" ref={sectionExperiences}>
         <h3 className='txt-green'>EXPERIENCIA LABORAL</h3>

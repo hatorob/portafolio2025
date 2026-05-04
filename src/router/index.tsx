@@ -12,6 +12,7 @@ import { ExperiencesAdmin } from "../admin/pages/ExperiencesAdmin/ExperiencesAdm
 import { ProjectAdmin } from "../admin/pages/ProjectsAdmin/ProjectAdmin";
 import { BlogsAdmin } from "../admin/pages/BlogsAdmin/BlogsAdmin";
 import { Register } from "../pages/Register/Register";
+import ProfileAdmin from "../admin/pages/ProfileAdmin/ProfileAdmin";
 
 
 export const router = createBrowserRouter([
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: "/admin", 
                 element: <HomeAdmin />
+            },
+            {
+                path: "/admin/perfil", 
+                element: <ProfileAdmin />
             },
             {
                 path:"/admin/experiencia",

@@ -25,6 +25,7 @@ export const NavbarAdmin = () => {
                 <p>User: {user.signInDetails.loginId}</p>
                 <hr />
                 <div className="container-admin-links">
+                    <Link to={"/admin/perfil"}>Perfil</Link>
                     <Link to={"/admin/experiencia"}>Experiencias</Link>
                     <Link to={"/admin/proyectos"}>Proyectos</Link>
                     <Link to={"/admin/blogs"}>Blogs</Link>
