@@ -5,15 +5,15 @@ export const storage = defineStorage({
   access: (allow) => ({
     "projects/*": [
       allow.guest.to(["read"]),
-      allow.authenticated.to(["read", "write", "delete"]),
+      allow.groups(["Admin"]).to(["read", "write", "delete"]),
     ],
     "blogs/*": [
       allow.guest.to(["read"]),
-      allow.authenticated.to(["read", "write", "delete"]),
+      allow.groups(["Admin"]).to(["read", "write", "delete"]),
     ],
     "profiles/*": [
       allow.guest.to(["read"]),
-      allow.authenticated.to(["read", "write", "delete"]),
+      allow.groups(["Admin"]).to(["read", "write", "delete"]),
     ],
   }),
 });

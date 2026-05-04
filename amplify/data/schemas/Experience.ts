@@ -14,5 +14,5 @@ export const Experience = a
   })
   .authorization((allow) => [
     allow.publicApiKey().to(["read"]),
-    allow.authenticated().to(["create", "update", "delete", "read"]),
+    allow.groups(["Admin"]).to(["create", "update", "delete", "read"]),
   ]);
