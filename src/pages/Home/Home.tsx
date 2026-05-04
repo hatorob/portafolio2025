@@ -1,7 +1,7 @@
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import { type SkillKey } from '../../components/Skills/Skills';
-import { lazy, useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { useOnView } from '../../hooks/useOnView';
 import { SkeletonCardProject } from '../../components/Cards/CardProject/SkeletonCardProject';
 import { useProjects } from '../../hooks/projects/useProjects';
@@ -131,96 +131,98 @@ export const Home = () => {
 
 
   return (
-    <div className='container-home'>
-      <div className="container-me section">
-        <div className='info-desc-one'>
-          <p>Yo soy, 
-            <br /> 
-            <span className='txt-green'>
-              { perfil && perfil[0].fullName ||"Alejandro Toro"}
-            </span>
-            <br /> 
-            <span className='txt-blue'>
-              { perfil && perfil[0].role ||"Desarrollador Web Full Stack e ingeniero de telecomunicaciones"}
-            </span>
-          </p>
+    <Suspense fallback={<div>Cargando...</div>}>
+      <div className='container-home'>
+        <div className="container-me section">
+          <div className='info-desc-one'>
+            <p>Yo soy, 
+              <br /> 
+              <span className='txt-green'>
+                { perfil && perfil[0].fullName ||"Alejandro Toro"}
+              </span>
+              <br /> 
+              <span className='txt-blue'>
+                { perfil && perfil[0].role ||"Desarrollador Web Full Stack e ingeniero de telecomunicaciones"}
+              </span>
+            </p>
+          </div>
+          <img className="img-me" src={imageMe} alt="imagen desarrollador" width={400} height={400} loading='lazy' />
+          <div className='info-desc-two'>
+            <p>Apasionado por el mundo IT, con más de <span className='txt-blue'>4 años de experiencia</span> laboral entre <span className='txt-green'>ingeniero y desarrollador.</span></p>
+          </div>
         </div>
-        <img className="img-me" src={imageMe} alt="imagen desarrollador" width={400} height={400} loading='lazy' />
-        <div className='info-desc-two'>
-          <p>Apasionado por el mundo IT, con más de <span className='txt-blue'>4 años de experiencia</span> laboral entre <span className='txt-green'>ingeniero y desarrollador.</span></p>
+        <div className="section">
+          <h3>HABILIDADES <span className='txt-green'>FRONTEND</span> - <span className='txt-blue'>BACKEND</span> </h3>
+          <Skills skills={perfil && perfil[0].skills  || []}/>
         </div>
-      </div>
-      <div className="section">
-        <h3>HABILIDADES <span className='txt-green'>FRONTEND</span> - <span className='txt-blue'>BACKEND</span> </h3>
-        <Skills skills={perfil && perfil[0].skills }/>
-      </div>
-      <div className="section" ref={sectionExperiences}>
-        <h3 className='txt-green'>EXPERIENCIA LABORAL</h3>
-        <div className="container-experience">
-          {
-            (isLoadingExperiences) 
-              ? Array.from({ length: 4 }).map((_, i) => (
-                  <SkeletonCardExp key={`skeleton_card_experience_${i}`} />
-                ))
-              : (experiences ?? []).map((experience) => (
-                  <CardExp key={`card_experience_${experience.id}`} experience={experience} />
-                ))
-          }
-        </div>
-      </div>
-      <div className="section" ref={sectionProjectsProfessional}>
-        <h3 className='txt-blue'>PROYECTOS PROFESIONALES</h3>
-        <div className="container-projects">
-          {
-            (isLoadingProjectsProfessional)
-              ? Array.from({ length: 5 }).map( (_,i) => (
-                  <SkeletonCardProject key={`skeleton_card_project_professional_${i}`} index={i} />
-                ))
-              : (projectsProfessional ?? []).map( (project, index) => {
-              return <CardProject key={`card_project_professional_${project.id}`} project={project} index={index} isHome={true}/>
-            })
-          }
-        </div>
-        <div className='btn-more'>
-          <Link to="/proyectos">Ver más</Link>
-        </div>
-      </div>
-
-      <div className="section" ref={sectionProjectsAcademic}>
-        <h3 className='txt-green'>PROYECTOS ACADÉMICOS</h3>
-        <div className="container-projects">
-          {
-            (isLoadingProjectsAcademic)
-              ? Array.from({ length: 4 }).map( (_,i) => (
-                  <SkeletonCardProject key={`skeleton_card_project_academic_${i}`} index={i} />
-                ))
-              : (projectsAcademic ?? []).map( (project, index) => {
-              return <CardProject key={`card_project_academic_${project.id}`} project={project} index={index} isHome={true}/>
-            })
-          }
-        </div>
-        <div className='btn-more'>
-          <Link to="/proyectos">Ver más</Link>
-        </div>
-      </div>
-
-      <div className="section" ref={sectionBlogs}>
-        <h3>Blogs</h3>
-          <div className="container-blogs">
+        <div className="section" ref={sectionExperiences}>
+          <h3 className='txt-green'>EXPERIENCIA LABORAL</h3>
+          <div className="container-experience">
             {
-              (isLoadingBlogs)
-                ? Array.from({ length: 3}).map( (_,i) => (
-                    <SkeletonBlog key={`skeleton_card_blog_${i}`} index={i} />
+              (isLoadingExperiences) 
+                ? Array.from({ length: 4 }).map((_, i) => (
+                    <SkeletonCardExp key={`skeleton_card_experience_${i}`} />
                   ))
-                : (blogs ?? []).map( (blog, index) => {
-                    return <CardBlog key={`card_blog_${blog.id}`} blog={blog} index={index} isHome={true}/>
-                  })
+                : (experiences ?? []).map((experience) => (
+                    <CardExp key={`card_experience_${experience.id}`} experience={experience} />
+                  ))
+            }
+          </div>
+        </div>
+        <div className="section" ref={sectionProjectsProfessional}>
+          <h3 className='txt-blue'>PROYECTOS PROFESIONALES</h3>
+          <div className="container-projects">
+            {
+              (isLoadingProjectsProfessional)
+                ? Array.from({ length: 5 }).map( (_,i) => (
+                    <SkeletonCardProject key={`skeleton_card_project_professional_${i}`} index={i} />
+                  ))
+                : (projectsProfessional ?? []).map( (project, index) => {
+                return <CardProject key={`card_project_professional_${project.id}`} project={project} index={index} isHome={true}/>
+              })
             }
           </div>
           <div className='btn-more'>
-            <Link to="/blogs">Ver más</Link>
+            <Link to="/proyectos">Ver más</Link>
           </div>
+        </div>
+
+        <div className="section" ref={sectionProjectsAcademic}>
+          <h3 className='txt-green'>PROYECTOS ACADÉMICOS</h3>
+          <div className="container-projects">
+            {
+              (isLoadingProjectsAcademic)
+                ? Array.from({ length: 4 }).map( (_,i) => (
+                    <SkeletonCardProject key={`skeleton_card_project_academic_${i}`} index={i} />
+                  ))
+                : (projectsAcademic ?? []).map( (project, index) => {
+                return <CardProject key={`card_project_academic_${project.id}`} project={project} index={index} isHome={true}/>
+              })
+            }
+          </div>
+          <div className='btn-more'>
+            <Link to="/proyectos">Ver más</Link>
+          </div>
+        </div>
+
+        <div className="section" ref={sectionBlogs}>
+          <h3>Blogs</h3>
+            <div className="container-blogs">
+              {
+                (isLoadingBlogs)
+                  ? Array.from({ length: 3}).map( (_,i) => (
+                      <SkeletonBlog key={`skeleton_card_blog_${i}`} index={i} />
+                    ))
+                  : (blogs ?? []).map( (blog, index) => {
+                      return <CardBlog key={`card_blog_${blog.id}`} blog={blog} index={index} isHome={true}/>
+                    })
+              }
+            </div>
+            <div className='btn-more'>
+              <Link to="/blogs">Ver más</Link>
+            </div>
+        </div>
       </div>
-    </div>
+    </Suspense>
   )
 }
